@@ -1,0 +1,5 @@
+int a,b,c;
+char l;
+float o = 10;
+double h;
+scanf("%d",&a);
