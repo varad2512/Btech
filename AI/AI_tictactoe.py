@@ -33,36 +33,39 @@ def findopenpositions(l):
 				return_list.append((x,y))
 	return return_list
 
-def func1(player, l):
-	#TODO complete the function (Recursive)	
-	if player == 'X':
+def scorecalculate(l):
+	#TODO count winning positions
+
+def minimax(l):
+	#TODO if x wins return 10
+	#TODO if o wins return -10
+	#if end of moves return 0
+	q = Queue(maxsize = 0)
+	open_positions_list = findopenpositions(l)
+	for x in l:
+		q.put_nowait(x)
+	
+			
 			l[x] = 3
-			score_of_x = scorecalculate('X',l)
-			func1('O',l)
 
-	if player == 'O':
-			list_of_open_positions_for_o = findopenpositions(l)
-			for x in list_of_open_positions_for_o:
-				l[x] = 5
-				score_of_y.append(scorecalculate('O',l))   #TODO Dictionary
-				
+			score_of_x = scorecalculate(l)
+			func1(l)
 
-
-
-
-
+	
 init(l)
 board(l)
-
+move = 0
 while(True):
-	#TODO if x wins break
-	#TODO if o wins break
-	#TODO if no moves left break
-	#TODO if even play user
-	#else if odd play AI ->
-	q = Queue(maxsize = 0)
-	list_of_open_positions = findopenpositions(l)
-	for x in list_of_open_positions:
-		q.put_nowait(x)
-	for x in q:
-		scores_of_positions.append(minimax(x), 'X')
+	#TODO if x wins break AI
+	#TODO if o wins break user
+	#TODO end of moves then draw
+	if move == 0:
+		l[1,1] = 3
+	if move % 2 == 0 and move != 0:
+		next_position = minimax(l)
+		l[next_position] = 3
+	else:
+		print "User, please enter the next move:"
+		next_position = tuple(raw_input())
+		l[next_position] = 5
+	move = move + 1
