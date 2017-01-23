@@ -1,8 +1,8 @@
 #AI technique for tic tac toe game
-from Queue import *
+
 import numpy as np 
 
-l = np.ones([3,3]) 
+l = np.ones([3,3],dtype = 'uint8') 
 
 def init(l):
   '''
@@ -12,13 +12,13 @@ def init(l):
   '''
 
   l[0,0] = 5
-  l[0,1] = 5
-  l[0,2] = 3
-  l[1,0] = 2
-  l[1,1] = 3
+  l[0,1] = 3
+  l[0,2] = 5
+  l[1,0] = 5
+  l[1,1] = 5
   l[1,2] = 2
-  l[2,0] = 5
-  l[2,1] = 3
+  l[2,0] = 3
+  l[2,1] = 2
   l[2,2] = 2
 
 def board(l):
@@ -32,13 +32,13 @@ def xwins(l):
 	sum_of_row   = list(np.product(l,axis = 1))
 	sum_of_diag1 = list(np.diagonal(l))
 	sum_of_diag2 = list(np.diagonal(np.fliplr(l)))
-	if 18 in sum_of_col:
+	if 27 in sum_of_col:
 	  	return 1    
-	elif 18 in sum_of_row:
+	elif 27 in sum_of_row:
 		return 1    
-	elif np.prod(sum_of_diag1) == 18:
+	elif np.prod(sum_of_diag1) == 27:
 		return 1
-	elif np.prod(sum_of_diag2) == 18:
+	elif np.prod(sum_of_diag2) == 27:
 		return 1
 	else:
 		return 0
@@ -48,22 +48,24 @@ def owins(l):
 	sum_of_row   = list(np.product(l,axis = 1))
 	sum_of_diag1 = list(np.diagonal(l))
 	sum_of_diag2 = list(np.diagonal(np.fliplr(l)))
-	if 50 in sum_of_col:
+	if 75 in sum_of_col:
 	  	return 1    
-	elif 50 in sum_of_row:
+	elif 75 in sum_of_row:
 		return 1    
-	elif np.prod(sum_of_diag1) == 50:
+	elif np.prod(sum_of_diag1) == 75:
 		return 1
-	elif np.prod(sum_of_diag2) == 50:
+	elif np.prod(sum_of_diag2) == 75:
 		return 1
 	else:
 		return 0
 
 def endmoves(l):
+	
 	for x in range(3):
 		for y in range(3):
 			if l[x,y] == 2:
 				flag = 1
+	
 	if flag == 1:
 		return 0
 	else:
@@ -90,11 +92,12 @@ def findopenpositions(l):
 	return return_list
 
 def minimax(l, player):
-	if xwins(l):
+	if (xwins(l)) == 1:
+		
 		return 10
-	if owins(l):
+	if (owins(l)) == 1:
 		return -10
-	if endmoves(l):
+	if endmoves(l) == 1:
 		return 0
 
 	if (player == 'X'):
@@ -119,13 +122,14 @@ move = 0
 open_positions_list = findopenpositions(l)
 moves_and_scores 	= dict()
 for x in open_positions_list:
+	
 	l[x] = 3
 	moves_and_scores[x] = minimax(l, 'O')
 	l[x] = 2
 print moves_and_scores
 max(moves_and_scores)
-moves_and_scores = sorted(moves_and_scores, key = moves_and_scores.__getitem__)
-new_move = moves_and_scores[0]
+moves_and_scores_1 = sorted(moves_and_scores, key = moves_and_scores.__getitem__, reverse = True)
+new_move = moves_and_scores_1[0]
 l[new_move] = 3
 print ""
 print ""
