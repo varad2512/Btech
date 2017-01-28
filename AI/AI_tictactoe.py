@@ -11,13 +11,13 @@ def init(l):
       l[rows,cols] = 2      #blank initialization of tic tac toe board
   '''
 
-  l[0,0] = 5
-  l[0,1] = 3
-  l[0,2] = 5
-  l[1,0] = 5
-  l[1,1] = 5
+  l[0,0] = 2
+  l[0,1] = 2
+  l[0,2] = 2
+  l[1,0] = 2
+  l[1,1] = 2
   l[1,2] = 2
-  l[2,0] = 3
+  l[2,0] = 2
   l[2,1] = 2
   l[2,2] = 2
 
@@ -48,19 +48,19 @@ def owins(l):
 	sum_of_row   = list(np.product(l,axis = 1))
 	sum_of_diag1 = list(np.diagonal(l))
 	sum_of_diag2 = list(np.diagonal(np.fliplr(l)))
-	if 75 in sum_of_col:
+	if 125 in sum_of_col:
 	  	return 1    
-	elif 75 in sum_of_row:
+	elif 125 in sum_of_row:
 		return 1    
-	elif np.prod(sum_of_diag1) == 75:
+	elif np.prod(sum_of_diag1) == 125:
 		return 1
-	elif np.prod(sum_of_diag2) == 75:
+	elif np.prod(sum_of_diag2) == 125:
 		return 1
 	else:
 		return 0
 
 def endmoves(l):
-	
+	flag = 0
 	for x in range(3):
 		for y in range(3):
 			if l[x,y] == 2:
@@ -105,7 +105,6 @@ def minimax(l, player):
 		for states in findopenpositions(l):
 			l[states] = 3
 			bestmove  = max(bestmove, minimax(l, 'O'))
-			print bestmove
 			l[states] = 2
 		return bestmove
 
@@ -118,19 +117,43 @@ def minimax(l, player):
 		return bestmove 
 init(l)
 board(l)
-move = 0
-open_positions_list = findopenpositions(l)
-moves_and_scores 	= dict()
-for x in open_positions_list:
+move  = 0
+while(True):
 	
-	l[x] = 3
-	moves_and_scores[x] = minimax(l, 'O')
-	l[x] = 2
-print moves_and_scores
-max(moves_and_scores)
-moves_and_scores_1 = sorted(moves_and_scores, key = moves_and_scores.__getitem__, reverse = True)
-new_move = moves_and_scores_1[0]
-l[new_move] = 3
-print ""
-print ""
-board(l)
+	if move > 8:
+		print "draw"
+		break
+
+	elif (xwins(l)):
+		print "x wins"
+		break
+
+	elif (owins(l)):
+		print "o wins"
+		break
+
+	else :
+		if move % 2 == 0:
+			open_positions_list = findopenpositions(l)
+			moves_and_scores 	= dict()
+			for x in open_positions_list:
+				
+				l[x] = 3
+				moves_and_scores[x] = minimax(l, 'O')
+				l[x] = 2
+			print moves_and_scores
+			moves_and_scores_1 = sorted(moves_and_scores, key = moves_and_scores.__getitem__, reverse = True)
+			print moves_and_scores_1
+			new_move = moves_and_scores_1[0]
+			l[new_move] = 3
+
+		else:
+			print "Please enter move:"
+			row = input()
+			col = input()
+			l[row][col] = 5
+
+		print ""
+		print ""
+		board(l)
+		move = move + 1
