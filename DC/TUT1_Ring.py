@@ -22,15 +22,15 @@ for x in jobs:
 initial = randint(0,len(ll)-2)
 print "Random initializer :", initial
 for x in range(len(ll) - 1):
-	print "loop initial",initial
+	#print "loop initial",initial
 	priorities.append(ll[initial][1])
 	print "Election message from process : ",ll[initial][0],"to",
 	if ll[ll[initial][3]-1][2] != 0:
 		initial = ll[initial][3] - 1
-		print "if",initial
+		#print "if",initial
 	else:
 		initial = ll[ll[initial][3] - 1][3] - 1
-		print "else",initial
+		#print "else",initial
 	print ll[initial][0]
 print priorities
 max_priority = max(priorities)
