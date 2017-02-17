@@ -59,6 +59,7 @@ def A*(source,dest):
 				continue
 			g[x] = tentative_distance
 			f[x] = g[x] + h[x]
+			open_list.put_nowait((f[x],x))
 			camefrom[x] = current
 
 
