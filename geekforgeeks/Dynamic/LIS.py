@@ -1,4 +1,5 @@
-#longest subsequence problem 
+#longest subsequence problem dynamic programming
+
 
 def LIS(arr,n):
 	lis = [1]*n
@@ -8,5 +9,5 @@ def LIS(arr,n):
 				lis[i] = lis[j]+1
 	return max(lis)
 
-input = [ 1,2,3,4,5,10, 2, 1]
+input = [1,2,3,4,5,10,2,1]
 print LIS(input,len(input))
