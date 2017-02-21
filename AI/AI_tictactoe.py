@@ -112,7 +112,7 @@ def minimax(l, player):
 		bestmove = 9999
 		for states in findopenpositions(l):
 			l[states] = 5
-			bestmove  = min(bestmove, minimax(l, 'X'))
+			bestmove  = ssssmin(bestmove, minimax(l, 'X'))
 			l[states] = 2
 		return bestmove 
 init(l)

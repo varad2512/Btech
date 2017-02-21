@@ -1,6 +1,4 @@
 #longest subsequence problem dynamic programming
-
-
 def LIS(arr,n):
 	lis = [1]*n
 	for i in range(1,n):
