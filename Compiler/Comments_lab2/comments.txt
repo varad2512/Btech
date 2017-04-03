@@ -1,0 +1,64 @@
+Varad Kulkarni
+CD LAB
+Detect comments and replace them using lex
+Roll no 44
+Gr no 131696
+  
+
+%{
+#include<stdio.h>
+int c=0;
+%}
+START "/*"
+END "*/"
+SIMPLE [^*]
+SPACE [ \t\n]
+COMPLEX "*"[^/]
+%s newstate
+%%
+"//"(.*[ \t]*.*)*[\n]+    {c++; fprintf(yyout," ");}
+{START}                    {yymore();BEGIN newstate;}
+ <newstate>{SIMPLE}        {yymore();BEGIN newstate;}
+ <newstate>{COMPLEX}      {yymore();BEGIN newstate;}
+ <newstate>{SPACE}        {yymore();BEGIN newstate;}
+ <newstate>{END}  {c++;fprintf(yyout," ");BEGIN 0;}
+%%
+main()
+{//program to remove comment lines
+yyin=fopen("file4","r");
+yyout=fopen("fileout4","w");system("cat file4");
+yylex();system("cat fileout4");
+printf("no.of comments=%d",c);
+fclose(yyin);
+fclose(yyout);
+}
+`
+The input file:
+
+/* #include <stdlib.h>
+
+
+    {}.@All nonsense symbols */
+//another comment
+int main{}
+{/**/
+ printf("hello");
+ /* comment inside// comment is ignored */
+ //how about//this?
+ /* now we /* try this */ */
+ printf("COOL!!");
+ return (0);
+}
+
+
+Output:
+
+ int main{}
+{
+
+
+ printf("hello");
+     
+ printf("COOL!!");
+ return (0);
+}

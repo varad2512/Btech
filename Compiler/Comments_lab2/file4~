@@ -1,0 +1,14 @@
+/* #include <stdlib.h>
+
+
+    {}.@All nonsense symbols */
+//another comment
+int main{}
+{/**/
+ printf("hello");
+ /* comment inside// comment is ignored */
+ //how about//this?
+ /* now we /* try this */ */
+ printf("COOL!!");
+ return (0);
+}
