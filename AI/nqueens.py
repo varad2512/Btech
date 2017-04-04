@@ -1,1 +1,0 @@
-#nqueens hill climbing
